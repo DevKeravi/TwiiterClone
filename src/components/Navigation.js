@@ -6,12 +6,12 @@ const Navigation = () => (
 	<nav>
 		<ul>
 			<li>
-				<Link to="/">Home</Link>
+				<Link to="/">홈</Link>
 			</li>
 		</ul>
 		<ul>
 			<li>
-				<Link to="/profile">My Profile</Link>
+				<Link to="/profile">내 정보</Link>
 			</li>
 		</ul>
 	</nav>

@@ -50,15 +50,15 @@ const Auth = () =>{
 	return (
 		<div>
 			<form onSubmit={onSubmit}> 
-				<input name="email" type="text" placeholder="Email" required value={email} onChange={onChange} />
-				<input name="password" type="password" placeholder="Password" required value={password} onChange={onChange} />
-				<input type="submit" value={newAccount ? "Create Account" : "Log In" } />
+				<input name="email" type="text" placeholder="이메일" required value={email} onChange={onChange} />
+				<input name="password" type="password" placeholder="비밀번호" required value={password} onChange={onChange} />
+				<input type="submit" value={newAccount ? "계정 생성" : "로그인" } />
 				{error}
 			</form>
-			<span onClick={toggleAccount}>{newAccount ? "Sign in" :" Create Account"}</span>
+			<span onClick={toggleAccount}>{newAccount ? "로그인" :"계정 생성"}</span>
 			<div>
-				<button onClick={onSocialClick} name="google">Continue with Google</button>
-				<button onClick={onSocialClick} name="github">Continue with Github</button>
+				<button onClick={onSocialClick} name="google">구글 계정으로 계속하기</button>
+				<button onClick={onSocialClick} name="github">깃허브 계정으로 계속하기</button>
 			</div>
 		</div>
 	);

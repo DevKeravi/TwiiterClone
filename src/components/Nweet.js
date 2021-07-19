@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { dbService } from "fbase";
+import { dbService,storageService } from "fbase";
 
 const Nweet = ({ nweetObj, isOwner }) => {
 
@@ -10,6 +10,7 @@ const Nweet = ({ nweetObj, isOwner }) => {
 
 		if(ok){
 			await dbService.doc(`nweets/${nweetObj.id}`).delete();
+			await storageService.refFromURL(nweetObj.attachmentUrl).delete();
 		}
 	};
 
@@ -34,19 +35,26 @@ const Nweet = ({ nweetObj, isOwner }) => {
 		<div>
 			{editing ? (
 				<>
-				<form onSubmit={onSubmit}>
-					<input onChange={onChange} type="text" placeholde="수정할 내용을 적어주세요" value={newNweet} required />
-					<input type="submit" value="업데이트 트윗" />
-				</form>
-				<button onClick={toggleEditing}>취소</button>
+					{isOwner && (
+						<>
+							<form onSubmit={onSubmit}>
+								<input onChange={onChange} type="text" placeholde="수정할 내용을 적어주세요" value={newNweet} required />
+								<input type="submit" value="업데이트 트윗" />
+							</form>
+							<button onClick={toggleEditing}>취소</button>
+						</>
+					)}
 				</>
 			) : (
 				<>
 					<h4>{nweetObj.text}</h4>
+					{nweetObj.attachmentUrl &&
+					<img src={nweetObj.attachmentUrl} width="50px" height="50px" />
+					}
 					{isOwner && (
 						<>
-							<button onClick={onDeleteClick}>트윗 삭제</button>
 							<button onClick={toggleEditing}>트윗 수정</button>
+							<button onClick={onDeleteClick}>트윗 삭제</button>
 						</>
 					)}
 				</>
