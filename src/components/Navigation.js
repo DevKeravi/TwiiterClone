@@ -1,19 +1,37 @@
 import React from "react";
-import {Link} from "react-router-dom"
+import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTwitter } from "@fortawesome/free-brands-svg-icons";
+import { faUser } from "@fortawesome/free-solid-svg-icons";
 
-
-const Navigation = () => ( 
-	<nav>
-		<ul>
-			<li>
-				<Link to="/">홈</Link>
-			</li>
-		</ul>
-		<ul>
-			<li>
-				<Link to="/profile">내 정보</Link>
-			</li>
-		</ul>
-	</nav>
+const Navigation = ({ userObj }) => (
+  <nav>
+    <ul style={{ display: "flex", fustifyContent: "center", marginTop: 50 }}>
+      <li>
+        <Link to="/" style={{ marginRight: 10 }}>
+          <FontAwesomeIcon icon={faTwitter} color={"#04AAFF"} size="2x" />
+        </Link>
+      </li>
+    </ul>
+    <ul>
+      <li>
+        <Link
+          to="/profile"
+          style={{
+            marginLeft: 10,
+            display: "flex",
+            flexDirection: "colum",
+            alignItems: "center",
+            fontSize: 12,
+          }}
+        >
+          <FontAwesomeIcon icon={faUser} color={"#04AAFF"} size="2x" />
+          <span style={{ marginTop: 10 }}>
+            {userObj.displayName ? `${userObj.displayName}의 프로필` : "프로필"}
+          </span>
+        </Link>
+      </li>
+    </ul>
+  </nav>
 );
 export default Navigation;
