@@ -38,7 +38,6 @@ function App() {
       ) : (
         "초기화 중...."
       )}
-      <footer>&copy; {new Date().getFullYear()}Twiiter Clone</footer>
     </>
   );
 }

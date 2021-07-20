@@ -1,12 +1,17 @@
 import React, { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { storageService, dbService } from "fbase";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus, faTimes } from "@fortawesome/free-solid-svg-icons";
 
 const NweetFactory = ({ userObj }) => {
   const [nweet, setNweet] = useState("");
   const [attachment, setAttachment] = useState("");
 
   const onSubmit = async (event) => {
+    if (nweet === "") {
+      return;
+    }
     event.preventDefault();
     let attachmentUrl = "";
     if (attachment !== "") {
@@ -46,23 +51,43 @@ const NweetFactory = ({ userObj }) => {
     };
     reader.readAsDataURL(theFile);
   };
-  const onClearAttachment = () => setAttachment(null);
+  const onClearAttachment = () => setAttachment("");
   return (
-    <form onSubmit={onSubmit}>
+    <form onSubmit={onSubmit} className="factoryForm">
+      <div className="factoryInput__container">
+        <input
+          className="factroyInput__input"
+          type="text"
+          value={nweet}
+          onChange={onChange}
+          placeholder="어떤 생각을 하고 계세요?"
+          maxLength={120}
+        ></input>
+        <input type="submit" value="&rarr;" className="factoryInput__arrow" />
+      </div>
+      <label for="attach-file" className="factoryInput__label">
+        <span>사진 추가하기</span>
+        <FontAwesomeIcon icon={faPlus} />
+      </label>
       <input
-        type="text"
-        value={nweet}
-        onChange={onChange}
-        placeholder="어떤 생각을 하고 계세요?"
-        maxLength="120"
-      ></input>
-      <input type="file" accept="image/*" onChange={onFileChange} />
-      <input type="submit" value="트윗하기" />
-
+        id="attach-file"
+        type="file"
+        accept="image/*"
+        onChange={onFileChange}
+        style={{ opacity: 0 }}
+      />
       {attachment && (
-        <div>
-          <img src={attachment} alt="" width="50px" height="50px" />
-          <button onClick={onClearAttachment}>지우기</button>
+        <div className="factoryForm__attachment">
+          <img
+            src={attachment}
+            style={{
+              backgroundImage: attachment,
+            }}
+          />
+          <div className="factoryForm__clear" onClick={onClearAttachment}>
+            <span>지우기</span>
+            <FontAwesomeIcon icon={faTimes} />
+          </div>
         </div>
       )}
     </form>

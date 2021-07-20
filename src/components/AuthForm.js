@@ -66,7 +66,7 @@ const AuthForm = () => {
         {error}
       </form>
       <span onClick={toggleAccount} className="authSwitch">
-        {newAccount ? "로그인" : "계정 생성"} className="authSwitch"
+        {newAccount ? "로그인" : "계정 생성"}
       </span>
     </>
   );
